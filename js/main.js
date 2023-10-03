@@ -27,7 +27,7 @@ const graphsData = [{
 }, {
   heading: "Лицензии (повторно)",
   currentValue: 168000,
-  allValue: 1000000
+  allValue: 700000
 }, {
   heading: "Тендеры",
   currentValue: 0,
@@ -89,7 +89,7 @@ class RowGraph {
   }
 }
 class SingleRowGraph {
-  linesCount = 28;
+  linesCount = 29;
   constructor(properties) {
     this.heading = properties.heading;
     this.currentValue = properties.currentValue;
@@ -104,6 +104,21 @@ class SingleRowGraph {
   formatNumber(value) {
     return new String(value).replace(/(\d)(?=(\d{3})+$)/g, "$1 ");
   }
+  calculateLeftPosition(start, end) {
+    if (typeof start == "number" && typeof end == "number") {
+      let now = new Date();
+      let endYear = new Date(now.getFullYear(), 0, -1, 0, 0);
+      let day = Math.round((now - endYear) / 1000 / 60 / 60 / 24);
+      return day / end * 100;
+    } else {
+      let now = new Date();
+      let endYear = new Date(now.getFullYear(), 0, -1, 0, 0);
+      let todayDaysAfterYearStart = Math.round((now - endYear) / 1000 / 60 / 60 / 24);
+      let startDaysAfterYearStart = Math.round((start - endYear) / 1000 / 60 / 60 / 24);
+      let diff = todayDaysAfterYearStart - startDaysAfterYearStart;
+      return diff / 90 * 100;
+    }
+  }
   getHtmlNode(mode) {
     let newGraph = document.createElement("div");
     newGraph.classList = "plan__row-graph-single";
@@ -115,9 +130,15 @@ class SingleRowGraph {
 						<div class="plan__track"></div>
 					</div>
 					<h5 class="title plan__text-all" data-all="${this.allValue}">${this.formatNumber(this.remainingValue)} руб.</h5>
-					<div class="plan__dateline">
+					<div class="plan__container-dateline">
+						<div class="plan__dateline">
+						</div>
 						<span class="plan__text-dateline plan__text-dateline-start"></span>
 						<span class="plan__text-dateline plan__text-dateline-end"></span>
+						<div class="plan__container-today">
+							<div class="plan__text-today">Сегодня</div>
+							<div class="plan__text-date-today"></div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -165,10 +186,11 @@ class SingleRowGraph {
       span.classList = "plan__line";
       dateline.appendChild(span);
     }
-
+    let date = new Date();
+    const todayContainer = newGraph.querySelector(".plan__container-today");
+    const todayText = newGraph.querySelector(".plan__text-date-today");
     // считаем даты
     if (mode == "quarter") {
-      let date = new Date();
       let currentMonthId = date.getMonth();
       let currentQuarter = quarters[currentMonthId];
       let firstDay = new Date(date.getFullYear(), quartersReverse[currentQuarter][0], 1);
@@ -177,10 +199,14 @@ class SingleRowGraph {
       let lastDayText = getLastDayOfMonth(lastDay.getFullYear(), lastDay.getMonth()).getDate() + " " + months[lastDay.getMonth()];
       newGraph.querySelector(".plan__text-dateline-start").innerHTML = firstDayText;
       newGraph.querySelector(".plan__text-dateline-end").innerHTML = lastDayText;
+      todayText.innerHTML = date.getDate() + " " + months[date.getMonth()];
+      todayContainer.style.left = this.calculateLeftPosition(firstDay, lastDay) + "%";
     }
     if (mode == "year") {
       newGraph.querySelector(".plan__text-dateline-start").innerHTML = "1 января";
       newGraph.querySelector(".plan__text-dateline-end").innerHTML = "31 декября";
+      todayText.innerHTML = date.getDate() + " " + months[date.getMonth()];
+      todayContainer.style.left = this.calculateLeftPosition(1, 365) + "%";
     }
     return newGraph;
   }

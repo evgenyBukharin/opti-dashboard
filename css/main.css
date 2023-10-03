@@ -88,6 +88,49 @@ html {
   padding-left: 16px;
   padding-right: 16px
 }
+.plan__container-dateline {
+  position: relative
+}
+.plan__container-today {
+  position: absolute;
+  top: -73px;
+  background: var(--white-color);
+  padding: 5px 15px;
+  -webkit-box-shadow: 0 2px 6px 0 rgba(0,0,0,.16);
+  box-shadow: 0 2px 6px 0 rgba(0,0,0,.16);
+  border-radius: 37px;
+  -webkit-transform: translateX(-47%);
+  -ms-transform: translateX(-47%);
+  transform: translateX(-47%)
+}
+.plan__container-today::before {
+  content: "";
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
+  background: #b3e600;
+  border-radius: 0 0 6px 6px;
+  width: 3px;
+  height: 33px
+}
+.plan__container-today::after {
+  content: "";
+  width: 10px;
+  height: 5px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  border: 5px solid transparent;
+  border-top: 5px solid #fff;
+  position: absolute;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
+  bottom: -9px
+}
 .plan__content {
   background: var(--grey-color);
   border-radius: 10px;
@@ -236,6 +279,23 @@ html {
 .plan__text-dateline-end {
   right: 0
 }
+.plan__text-today {
+  font-size: 11px;
+  line-height: 11px;
+  margin-bottom: 2px;
+  text-transform: uppercase;
+  color: #525c69;
+  font-weight: 600;
+  text-align: center;
+  width: 100%
+}
+.plan__text-date-today {
+  font-size: 8px;
+  line-height: 8px;
+  opacity: .5;
+  text-align: center;
+  width: 100%
+}
 .plan__graphs {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -320,7 +380,7 @@ html {
 }
 .plan__dateline .plan__line:first-child,
 .plan__dateline .plan__line:last-child,
-.plan__dateline .plan__line:nth-child(16) {
+.plan__dateline .plan__line:nth-child(15) {
   opacity: 1
 }
 .plan__line {
