@@ -199,6 +199,21 @@ const dashboardData = {
 	},
 };
 
+const singleMonths = [
+	"январь",
+	"февраль",
+	"март",
+	"апрель",
+	"май",
+	"июнь",
+	"июль",
+	"август",
+	"сентябрь",
+	"октябрь",
+	"ноябрь",
+	"декабрь",
+];
+
 const months = [
 	"января",
 	"февраля",
@@ -232,6 +247,7 @@ const companiesFromLeadsEl = document.querySelector(".board__title-companiesFrom
 const mainDealsDataEl = document.querySelector(".board__item-mainDealsData");
 const rightColumnElements = document.querySelector(".board__item-6-column").querySelectorAll(".board__item-6");
 const devsDataEl = document.querySelector(".board__table");
+const devsTitleEl = document.querySelector(".board__title-devs-month");
 
 function formatNumber(value) {
 	return new String(value).replace(/(\d)(?=(\d{3})+$)/g, "$1 ");
@@ -572,6 +588,7 @@ function init(dashboardData) {
 	dashboardData.gridData.devsData.forEach((obj) => {
 		devsDataEl.appendChild(new DevRow(obj).getHtmlNode());
 	});
+	devsTitleEl.innerHTML = singleMonths[new Date().getMonth()];
 	companiesFromLeadsEl.innerHTML = dashboardData.gridData.companiesFromLeads;
 	drawChart(dashboardData.gridData.lineChartData);
 }
