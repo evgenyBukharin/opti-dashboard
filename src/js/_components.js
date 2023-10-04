@@ -1,1 +1,1 @@
-import "./components/calculate-progress";
+import "./components/dashboard-content";

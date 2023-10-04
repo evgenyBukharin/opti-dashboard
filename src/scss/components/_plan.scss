@@ -290,9 +290,7 @@
 		padding: 0 2px;
 		& .plan {
 			&__line {
-				&:first-child,
-				&:nth-child(15),
-				&:last-child {
+				&:nth-child(3n + 1) {
 					opacity: 1;
 				}
 			}
