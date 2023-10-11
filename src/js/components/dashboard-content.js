@@ -595,9 +595,9 @@ function init(dashboardData) {
 }
 
 axios
-	.get("url")
+	.get("dashboardDataUrl")
 	.then((r) => {
-		init(r.data.dashboardData);
+		init(r.data);
 	})
 	.catch((e) => {
 		console.log(e);
