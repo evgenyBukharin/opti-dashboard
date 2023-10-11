@@ -1,203 +1,204 @@
+import axios from "axios";
 import Chart from "chart.js/auto";
 
 // набор данных
-const dashboardData = {
-	mainTarget: 5230000,
-	sellingPlanData: [
-		{
-			heading: "Общее (услуги)",
-			currentValue: 400000,
-			allValue: 900000,
-		},
-		{
-			heading: "Продвижение и реклама",
-			currentValue: 0,
-			allValue: 200000,
-		},
-		{
-			heading: "Поддержка - Правки",
-			currentValue: 0,
-			allValue: 50000,
-		},
-		{
-			heading: "БУС сайты",
-			currentValue: 36000,
-			allValue: 1200000,
-		},
-		{
-			heading: "Б24 CRM",
-			currentValue: 944000,
-			allValue: 800000,
-		},
-		{
-			heading: "Лицензии (повторно)",
-			currentValue: 168000,
-			allValue: 700000,
-		},
-		{
-			heading: "Тендеры",
-			currentValue: 0,
-			allValue: 1000000,
-		},
-	],
-	graphDataQuarter: {
-		heading: "Выполнение плана по направлениям",
-		allValue: 5230000,
-		currentValue: 1905144,
-	},
-	graphDataYear: {
-		heading: "Выполнение плана по направлениям",
-		allValue: 15230000,
-		currentValue: 1905144,
-	},
-	gridData: {
-		mainDealsData: {
-			firstTitle: "Общая сумма сделок",
-			firstValue: 110157433,
-			secondTitle: "Сумма выйгранных сделок",
-			secondValue: 6321271,
-			thirdTitle: "Сумма сделок в работе",
-			thirdValue: 103836162,
-		},
-		rightColumnData: [
-			{
-				firstTitle: "Количество сделок Общее (услуги)",
-				firstValue: 44,
-				secondTitle: "Количество сделок",
-				secondValue: 183,
-				thirdTitle: "Конверсия, %",
-				thirdValue: 24,
-			},
-			{
-				firstTitle: "Количество сделок Б24 CRM",
-				firstValue: 25,
-				secondTitle: "Количество сделок",
-				secondValue: 167,
-				thirdTitle: "Конверсия, %",
-				thirdValue: 15,
-			},
-			{
-				firstTitle: "Количество сделок БУС сайты",
-				firstValue: 8,
-				secondTitle: "Количество сделок",
-				secondValue: 107,
-				thirdTitle: "Конверсия, %",
-				thirdValue: 7,
-			},
-		],
-		companiesFromLeads: 6,
-		dealsCountByYears: [
-			{
-				year: 2023,
-				value: 127,
-			},
-			{
-				year: 2022,
-				value: 182,
-			},
-			{
-				year: 2021,
-				value: 197,
-			},
-			{
-				year: 2020,
-				value: 223,
-			},
-			{
-				year: 2019,
-				value: 233,
-			},
-		],
-		dealsCountData: [
-			{
-				title: "Сделки",
-				value: 612,
-				subtitle: "Выполнено всего",
-			},
-			{
-				title: "Часы разработки",
-				value: 2871,
-				subtitle: "Текущий год",
-			},
-			{
-				title: "Сделки",
-				value: "108/8",
-				subtitle: "Год/месяц",
-			},
-			{
-				title: "Часы разработки",
-				value: 450,
-				subtitle: "Предыдущий месяц",
-			},
-			{
-				title: "Сделки",
-				value: 19,
-				subtitle: "В работе (сумма больше 0)",
-			},
-			{
-				title: "Часы разработки",
-				value: 330,
-				subtitle: "Текущий месяц",
-			},
-		],
-		lineChartData: [
-			{
-				month: "Январь",
-				value: 4700,
-			},
-			{
-				month: "Февраль",
-				value: 4756,
-			},
-			{
-				month: "Март",
-				value: 4723,
-			},
-			{
-				month: "Апрель",
-				value: 4792,
-			},
-			{
-				month: "Май",
-				value: 4771,
-			},
-			{
-				month: "Июнь",
-				value: 4857,
-			},
-			{
-				month: "Июль",
-				value: 4869,
-			},
-		],
-		devsData: [
-			{
-				name: "Дарья Колесникова",
-				tasks: 127,
-				expired: 127,
-				hours: 289,
-			},
-			{
-				name: "Евгений Бухарин",
-				tasks: 127,
-				expired: 127,
-				hours: 289,
-			},
-			{
-				name: "Анастасия Вергеева",
-				tasks: 127,
-				expired: 127,
-				hours: 289,
-			},
-			{
-				name: "Вакансия",
-				tasks: 0,
-				expired: 0,
-				hours: 0,
-			},
-		],
-	},
-};
+// const dashboardData = {
+// 	mainTarget: 5230000,
+// 	sellingPlanData: [
+// 		{
+// 			heading: "Общее (услуги)",
+// 			currentValue: 400000,
+// 			allValue: 900000,
+// 		},
+// 		{
+// 			heading: "Продвижение и реклама",
+// 			currentValue: 0,
+// 			allValue: 200000,
+// 		},
+// 		{
+// 			heading: "Поддержка - Правки",
+// 			currentValue: 0,
+// 			allValue: 50000,
+// 		},
+// 		{
+// 			heading: "БУС сайты",
+// 			currentValue: 36000,
+// 			allValue: 1200000,
+// 		},
+// 		{
+// 			heading: "Б24 CRM",
+// 			currentValue: 944000,
+// 			allValue: 800000,
+// 		},
+// 		{
+// 			heading: "Лицензии (повторно)",
+// 			currentValue: 168000,
+// 			allValue: 700000,
+// 		},
+// 		{
+// 			heading: "Тендеры",
+// 			currentValue: 0,
+// 			allValue: 1000000,
+// 		},
+// 	],
+// 	graphDataQuarter: {
+// 		heading: "Выполнение плана по направлениям",
+// 		allValue: 5230000,
+// 		currentValue: 1905144,
+// 	},
+// 	graphDataYear: {
+// 		heading: "Выполнение плана по направлениям",
+// 		allValue: 15230000,
+// 		currentValue: 1905144,
+// 	},
+// 	gridData: {
+// 		mainDealsData: {
+// 			firstTitle: "Общая сумма сделок",
+// 			firstValue: 110157433,
+// 			secondTitle: "Сумма выйгранных сделок",
+// 			secondValue: 6321271,
+// 			thirdTitle: "Сумма сделок в работе",
+// 			thirdValue: 103836162,
+// 		},
+// 		rightColumnData: [
+// 			{
+// 				firstTitle: "Количество сделок Общее (услуги)",
+// 				firstValue: 44,
+// 				secondTitle: "Количество сделок",
+// 				secondValue: 183,
+// 				thirdTitle: "Конверсия, %",
+// 				thirdValue: 24,
+// 			},
+// 			{
+// 				firstTitle: "Количество сделок Б24 CRM",
+// 				firstValue: 25,
+// 				secondTitle: "Количество сделок",
+// 				secondValue: 167,
+// 				thirdTitle: "Конверсия, %",
+// 				thirdValue: 15,
+// 			},
+// 			{
+// 				firstTitle: "Количество сделок БУС сайты",
+// 				firstValue: 8,
+// 				secondTitle: "Количество сделок",
+// 				secondValue: 107,
+// 				thirdTitle: "Конверсия, %",
+// 				thirdValue: 7,
+// 			},
+// 		],
+// 		companiesFromLeads: 6,
+// 		dealsCountByYears: [
+// 			{
+// 				year: 2023,
+// 				value: 127,
+// 			},
+// 			{
+// 				year: 2022,
+// 				value: 182,
+// 			},
+// 			{
+// 				year: 2021,
+// 				value: 197,
+// 			},
+// 			{
+// 				year: 2020,
+// 				value: 223,
+// 			},
+// 			{
+// 				year: 2019,
+// 				value: 233,
+// 			},
+// 		],
+// 		dealsCountData: [
+// 			{
+// 				title: "Сделки",
+// 				value: 612,
+// 				subtitle: "Выполнено всего",
+// 			},
+// 			{
+// 				title: "Часы разработки",
+// 				value: 2871,
+// 				subtitle: "Текущий год",
+// 			},
+// 			{
+// 				title: "Сделки",
+// 				value: "108/8",
+// 				subtitle: "Год/месяц",
+// 			},
+// 			{
+// 				title: "Часы разработки",
+// 				value: 450,
+// 				subtitle: "Предыдущий месяц",
+// 			},
+// 			{
+// 				title: "Сделки",
+// 				value: 19,
+// 				subtitle: "В работе (сумма больше 0)",
+// 			},
+// 			{
+// 				title: "Часы разработки",
+// 				value: 330,
+// 				subtitle: "Текущий месяц",
+// 			},
+// 		],
+// 		lineChartData: [
+// 			{
+// 				month: "Январь",
+// 				value: 4700,
+// 			},
+// 			{
+// 				month: "Февраль",
+// 				value: 4756,
+// 			},
+// 			{
+// 				month: "Март",
+// 				value: 4723,
+// 			},
+// 			{
+// 				month: "Апрель",
+// 				value: 4792,
+// 			},
+// 			{
+// 				month: "Май",
+// 				value: 4771,
+// 			},
+// 			{
+// 				month: "Июнь",
+// 				value: 4857,
+// 			},
+// 			{
+// 				month: "Июль",
+// 				value: 4869,
+// 			},
+// 		],
+// 		devsData: [
+// 			{
+// 				name: "Дарья Колесникова",
+// 				tasks: 127,
+// 				expired: 127,
+// 				hours: 289,
+// 			},
+// 			{
+// 				name: "Евгений Бухарин",
+// 				tasks: 127,
+// 				expired: 127,
+// 				hours: 289,
+// 			},
+// 			{
+// 				name: "Анастасия Вергеева",
+// 				tasks: 127,
+// 				expired: 127,
+// 				hours: 289,
+// 			},
+// 			{
+// 				name: "Вакансия",
+// 				tasks: 0,
+// 				expired: 0,
+// 				hours: 0,
+// 			},
+// 		],
+// 	},
+// };
 
 const singleMonths = [
 	"январь",
@@ -593,4 +594,11 @@ function init(dashboardData) {
 	drawChart(dashboardData.gridData.lineChartData);
 }
 
-init(dashboardData);
+axios
+	.get("url")
+	.then((r) => {
+		init(r.data.dashboardData);
+	})
+	.catch((e) => {
+		console.log(e);
+	});
