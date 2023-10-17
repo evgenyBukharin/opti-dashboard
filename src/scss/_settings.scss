@@ -38,8 +38,15 @@ html {
 	padding: 0;
 }
 
-.container {
+.container_main {
 	margin: 0 auto;
 	padding: 0 var(--container-offset);
 	max-width: var(--container-width);
+}
+
+@media (max-width: 390px) {
+	.container_main {
+		padding-left: 10px;
+		padding-right: 10px;
+	}
 }
